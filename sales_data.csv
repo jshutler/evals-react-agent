@@ -1,0 +1,7 @@
+﻿first_name,last_name,customer_id,purchase_id,item_purchased,item_id,item_description,purchase_price,returned
+Sarah,McDaniels,1,1,Whole Milk,1,Alta Dena Whole Milk,4,0
+Sarah,McDaniels,1,1,Apple,2,Comic Crisp Apple,2,0
+Sarah,McDaniels,1,1,Bell Pepper,3,Red Bell Pepper,2,0
+John,Connors,2,2,Toy,4,Transformer,20,0
+John,Connors,2,3,Toy,4,Transformer,20,1
+Sarah ,McDaniels,1,2,Gas,5,Gas,50,0

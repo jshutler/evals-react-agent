@@ -1,0 +1,7 @@
+I need
+
+1. A chatbot
+    a. Build a database
+    b. have python function that can access db with arbitrary sql
+    c. llm needs to be able to access that python function
+    d. 
