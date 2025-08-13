@@ -5,6 +5,10 @@ from decimal import Decimal
 from typing import List, Optional, Dict, Any
 from connection import get_sales_db_session, Base
 from sqlalchemy import Column, Integer, String, Date, Numeric, DateTime, Text
+import logging 
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class Transaction(Base):
     """

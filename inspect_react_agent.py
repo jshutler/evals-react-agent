@@ -143,31 +143,14 @@ def db_agent_for_inspect():
 
 if __name__ == "__main__":
     import asyncio
+    dao = SalesDAO(SALES_DB_CONNECTION_STRING)
     
-    # Production usage with Anthropic
+    tools = create_database_tools(dao)
+    # # Production usage with Anthropic
     async def production_example():
         query = "I would like to know who has made transactions in the database as of right now."
-        breakpoint()
         result = await query_database_agent(query, use_anthropic=True)
         print(f"Production result: {result}")
     
-    # Run production example
+    # # Run production example
     asyncio.run(production_example())
-
-# For Inspect evaluation, you would use it like this:
-"""
-# inspect_task.py
-from inspect_ai import Task, task
-from inspect_ai.agent import bridge
-from inspect_ai.dataset import json_dataset
-from inspect_ai.scorer import model_graded_fact
-from your_agent_module import db_agent_for_inspect
-
-@task
-def evaluate_db_agent() -> Task:
-    return Task(
-        dataset=json_dataset("database_queries.json"),
-        solver=bridge(db_agent_for_inspect()),
-        scorer=model_graded_fact(),
-    )
-"""

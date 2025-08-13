@@ -1,0 +1,6 @@
+the inspect agent is not using the react framework
+
+it does not appear to be able to check the schema for the table prior to looking for it as far as i know.
+
+it is currently unclear to me how it is choosing to trigger a specific action, and if it is in some seperate
+flow per run. 

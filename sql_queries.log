@@ -1,0 +1,112 @@
+b88a5f6f - 2025-08-12 23:22:38,652 - INFO - Executing SQL query at 2025-08-12T23:22:38.652468
+b88a5f6f - 2025-08-12 23:22:39,669 - INFO - Executing SQL query at 2025-08-12T23:22:39.669431
+b88a5f6f - 2025-08-12 23:22:40,836 - INFO - Executing SQL query at 2025-08-12T23:22:40.836041
+b88a5f6f - 2025-08-12 23:22:41,963 - INFO - Executing SQL query at 2025-08-12T23:22:41.963581
+b88a5f6f - 2025-08-12 23:22:45,258 - INFO - Executing SQL query at 2025-08-12T23:22:45.258226
+b88a5f6f - 2025-08-12 23:22:46,216 - INFO - Executing SQL query at 2025-08-12T23:22:46.216597
+b88a5f6f - 2025-08-12 23:22:47,312 - INFO - Executing SQL query at 2025-08-12T23:22:47.312143
+e422596f - 2025-08-12 23:24:45,013 - INFO - Executing SQL query at 2025-08-12T23:24:45.013230
+e422596f - 2025-08-12 23:24:45,013 - INFO - Query: SELECT 
+  first_name,
+  last_name,
+  customer_id
+FROM sales_data
+WHERE purchase_date >= NOW() - INTERVAL 1 DAY
+0174173d - 2025-08-12 23:25:28,426 - INFO - Executing SQL query at 2025-08-12T23:25:28.426577
+0174173d - 2025-08-12 23:25:28,426 - INFO - Query: SELECT first_name, last_name, customer_id 
+FROM sales_data
+ORDER BY purchase_id DESC
+LIMIT 10;
+0174173d - 2025-08-12 23:25:28,427 - INFO - Query executed successfully
+71932366 - 2025-08-12 23:25:54,909 - INFO - Executing SQL query at 2025-08-12T23:25:54.909323
+71932366 - 2025-08-12 23:25:54,909 - INFO - Query: SELECT DISTINCT first_name, last_name, customer_id 
+FROM sales_data;
+71932366 - 2025-08-12 23:25:54,910 - INFO - Query executed successfully
+896af3a6 - 2025-08-12 23:27:06,949 - INFO - Executing SQL query at 2025-08-12T23:27:06.949721
+896af3a6 - 2025-08-12 23:27:06,949 - INFO - Query: SELECT DISTINCT first_name, last_name 
+FROM sales_data;
+896af3a6 - 2025-08-12 23:27:06,950 - INFO - Query executed successfully
+b6dceb3c - 2025-08-12 23:27:37,141 - INFO - Executing SQL query at 2025-08-12T23:27:37.141794
+b6dceb3c - 2025-08-12 23:27:37,141 - INFO - Query: SELECT DISTINCT first_name, last_name 
+FROM sales_data;
+b6dceb3c - 2025-08-12 23:27:37,143 - INFO - Query executed successfully
+77482ca5 - 2025-08-12 23:28:54,928 - INFO - Executing SQL query at 2025-08-12T23:28:54.928067
+77482ca5 - 2025-08-12 23:28:54,928 - INFO - Query: SELECT DISTINCT user_name 
+FROM transaction_table
+WHERE transaction_date = CURRENT_DATE;
+77482ca5 - 2025-08-12 23:28:54,938 - ERROR - Query execution failed: (psycopg2.errors.UndefinedTable) relation "transaction_table" does not exist
+LINE 2: FROM transaction_table
+             ^
+
+[SQL: SELECT DISTINCT user_name 
+FROM transaction_table
+WHERE transaction_date = CURRENT_DATE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+77482ca5 - 2025-08-12 23:28:56,926 - INFO - Executing SQL query at 2025-08-12T23:28:56.926409
+77482ca5 - 2025-08-12 23:28:56,926 - INFO - Query: SELECT DISTINCT user_name
+FROM sales_data
+WHERE transaction_date = CURRENT_DATE;
+77482ca5 - 2025-08-12 23:28:56,927 - ERROR - Query execution failed: (psycopg2.errors.InFailedSqlTransaction) current transaction is aborted, commands ignored until end of transaction block
+
+[SQL: SELECT DISTINCT user_name
+FROM sales_data
+WHERE transaction_date = CURRENT_DATE;]
+(Background on this error at: https://sqlalche.me/e/20/2j85)
+77482ca5 - 2025-08-12 23:28:57,956 - INFO - Executing SQL query at 2025-08-12T23:28:57.956916
+77482ca5 - 2025-08-12 23:28:57,957 - INFO - Query: SELECT DISTINCT user_name
+FROM sales_data
+WHERE DATE(transaction_date) = CURRENT_DATE;
+77482ca5 - 2025-08-12 23:28:57,957 - ERROR - Query execution failed: (psycopg2.errors.InFailedSqlTransaction) current transaction is aborted, commands ignored until end of transaction block
+
+[SQL: SELECT DISTINCT user_name
+FROM sales_data
+WHERE DATE(transaction_date) = CURRENT_DATE;]
+(Background on this error at: https://sqlalche.me/e/20/2j85)
+631853ac - 2025-08-12 23:36:16,971 - INFO - Executing SQL query at 2025-08-12T23:36:16.971793
+631853ac - 2025-08-12 23:36:16,971 - INFO - Query: SELECT DISTINCT user_name 
+FROM transaction_table
+WHERE created_at >= NOW() - INTERVAL 1 DAY;
+631853ac - 2025-08-12 23:36:16,982 - ERROR - Query execution failed: (psycopg2.errors.SyntaxError) syntax error at or near "1"
+LINE 3: WHERE created_at >= NOW() - INTERVAL 1 DAY;
+                                             ^
+
+[SQL: SELECT DISTINCT user_name 
+FROM transaction_table
+WHERE created_at >= NOW() - INTERVAL 1 DAY;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+631853ac - 2025-08-12 23:36:18,101 - INFO - Executing SQL query at 2025-08-12T23:36:18.101916
+631853ac - 2025-08-12 23:36:18,102 - INFO - Query: SELECT DISTINCT user_name
+FROM transaction_table
+WHERE created_at >= DATE_TRUNC('day', NOW()) - INTERVAL 1 DAY;
+631853ac - 2025-08-12 23:36:18,102 - ERROR - Query execution failed: (psycopg2.errors.SyntaxError) syntax error at or near "1"
+LINE 3: ...ERE created_at >= DATE_TRUNC('day', NOW()) - INTERVAL 1 DAY;
+                                                                 ^
+
+[SQL: SELECT DISTINCT user_name
+FROM transaction_table
+WHERE created_at >= DATE_TRUNC('day', NOW()) - INTERVAL 1 DAY;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+631853ac - 2025-08-12 23:36:19,177 - INFO - Executing SQL query at 2025-08-12T23:36:19.177661
+631853ac - 2025-08-12 23:36:19,177 - INFO - Query: SELECT DISTINCT user_name
+FROM transaction_table
+WHERE created_at >= DATE_TRUNC('day', CURRENT_TIMESTAMP) - INTERVAL 1 DAY;
+631853ac - 2025-08-12 23:36:19,178 - ERROR - Query execution failed: (psycopg2.errors.SyntaxError) syntax error at or near "1"
+LINE 3: ...at >= DATE_TRUNC('day', CURRENT_TIMESTAMP) - INTERVAL 1 DAY;
+                                                                 ^
+
+[SQL: SELECT DISTINCT user_name
+FROM transaction_table
+WHERE created_at >= DATE_TRUNC('day', CURRENT_TIMESTAMP) - INTERVAL 1 DAY;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+631853ac - 2025-08-12 23:36:20,238 - INFO - Executing SQL query at 2025-08-12T23:36:20.238843
+631853ac - 2025-08-12 23:36:20,238 - INFO - Query: SELECT DISTINCT user_name
+FROM transaction_table
+WHERE created_at >= DATE(NOW()) - INTERVAL 1 DAY;
+631853ac - 2025-08-12 23:36:20,239 - ERROR - Query execution failed: (psycopg2.errors.SyntaxError) syntax error at or near "1"
+LINE 3: WHERE created_at >= DATE(NOW()) - INTERVAL 1 DAY;
+                                                   ^
+
+[SQL: SELECT DISTINCT user_name
+FROM transaction_table
+WHERE created_at >= DATE(NOW()) - INTERVAL 1 DAY;]
+(Background on this error at: https://sqlalche.me/e/20/f405)

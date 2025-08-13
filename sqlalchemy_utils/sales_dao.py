@@ -4,6 +4,26 @@ from typing import List, Dict, Any, Optional
 import os
 from db_constants import SALES_DB_CONNECTION_STRING
 from pydantic import BaseModel, Field
+import logging
+from datetime import datetime
+import uuid
+
+# Set up logging to file only
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Remove any existing handlers (including default stream handler)
+for handler in logger.handlers[:]:
+    logger.removeHandler(handler)
+
+session_id = str(uuid.uuid4())[:8]
+
+# Add file handler
+file_handler = logging.FileHandler('sql_queries.log')
+file_handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(session_id)s - %(asctime)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 
 class SalesDAO:
@@ -72,6 +92,7 @@ class SalesDAO:
         Returns:
             List[str]: List of table names
         """
+        logger.info(f"Getting all tables at {datetime.now().isoformat()}", extra={'session_id': session_id})
         if not self.engine:
             return []
         
@@ -91,6 +112,7 @@ class SalesDAO:
         Returns:
             Dict[str, Any]: Schema information including columns, types, constraints
         """
+        logger.info(f"Getting schema for table {table_name} at {datetime.now().isoformat()}", extra={'session_id': session_id})
         if not self.engine:
             return {}
         
@@ -117,6 +139,7 @@ class SalesDAO:
                 'indexes': indexes
             }
             
+            logger.info(f"Schema for table {table_name} at {datetime.now().isoformat()}", extra={'session_id': session_id})
             return schema_info
             
         except Exception as error:
@@ -136,6 +159,12 @@ class SalesDAO:
             return []
         
         try:
+            # Log query execution start
+            logger.info(f"Executing SQL query at {datetime.now().isoformat()}", extra={'session_id': session_id})
+            logger.info(f"Query: {sql_query}", extra={'session_id': session_id})
+            if params:
+                logger.info(f"Parameters: {params}", extra={'session_id': session_id})
+            
             # Execute the query
             if params:
                 result = self.session.execute(text(sql_query), params)
@@ -147,13 +176,16 @@ class SalesDAO:
                 # Convert result to list of dictionaries
                 columns = result.keys()
                 rows = [dict(zip(columns, row)) for row in result.fetchall()]
+                logger.info("Query executed successfully", extra={'session_id': session_id})
                 return rows
             else:
                 # For INSERT, UPDATE, DELETE queries
                 self.session.commit()
+                logger.info(f"Query executed successfully. Rows affected: {result.rowcount}", extra={'session_id': session_id})
                 return [{'rows_affected': result.rowcount}]
                 
         except Exception as error:
+            logger.error(f"Query execution failed: {str(error)}", extra={'session_id': session_id})
             raise error
 
 
