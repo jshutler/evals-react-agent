@@ -2,3 +2,4 @@
 **/__pycache__/** 
 venv/
 logs/
+sql_queries.log

@@ -644,42 +644,11 @@ b21364d4 - 2025-08-15 08:52:40,441 - INFO - Query: SELECT
   COUNT(purchase_id) AS total_transactions
 FROM sales_data;
 b21364d4 - 2025-08-15 08:52:40,443 - INFO - Query executed successfully
-505446bd - 2025-08-15 09:36:41,758 - INFO - Getting all tables at 2025-08-15T09:36:41.758160
-505446bd - 2025-08-15 09:36:42,673 - INFO - Getting schema for table sales_data at 2025-08-15T09:36:42.673835
-505446bd - 2025-08-15 09:36:42,696 - INFO - Schema for table sales_data at 2025-08-15T09:36:42.696107
-505446bd - 2025-08-15 09:36:43,902 - INFO - Executing SQL query at 2025-08-15T09:36:43.902561
-505446bd - 2025-08-15 09:36:43,902 - INFO - Query: SELECT SUM(purchase_price) AS total_sales 
-FROM sales_data
-WHERE returned = 0;
-505446bd - 2025-08-15 09:36:43,903 - INFO - Query executed successfully
-505446bd - 2025-08-15 09:36:45,014 - INFO - Executing SQL query at 2025-08-15T09:36:45.014770
-505446bd - 2025-08-15 09:36:45,014 - INFO - Query: SELECT COUNT(*) AS total_transactions 
-FROM sales_data
-WHERE returned = 0;
-505446bd - 2025-08-15 09:36:45,015 - INFO - Query executed successfully
-a181f9a9 - 2025-08-15 09:46:47,261 - INFO - Getting all tables at 2025-08-15T09:46:47.261526
-a181f9a9 - 2025-08-15 09:46:48,370 - INFO - Getting schema for table sales_data at 2025-08-15T09:46:48.370666
-a181f9a9 - 2025-08-15 09:46:48,394 - INFO - Schema for table sales_data at 2025-08-15T09:46:48.394068
-a181f9a9 - 2025-08-15 09:46:49,599 - INFO - Executing SQL query at 2025-08-15T09:46:49.599236
-a181f9a9 - 2025-08-15 09:46:49,599 - INFO - Query: SELECT SUM(purchase_price) AS total_sales 
-FROM sales_data
-WHERE returned = 0;
-a181f9a9 - 2025-08-15 09:46:49,600 - INFO - Query executed successfully
-a181f9a9 - 2025-08-15 09:46:50,728 - INFO - Executing SQL query at 2025-08-15T09:46:50.728819
-a181f9a9 - 2025-08-15 09:46:50,728 - INFO - Query: SELECT COUNT(DISTINCT purchase_id) AS total_transactions
-FROM sales_data
-WHERE returned = 0;
-a181f9a9 - 2025-08-15 09:46:50,729 - INFO - Query executed successfully
-c1a6acb4 - 2025-08-15 09:49:25,664 - INFO - Getting all tables at 2025-08-15T09:49:25.664077
-c1a6acb4 - 2025-08-15 09:49:26,681 - INFO - Getting schema for table sales_data at 2025-08-15T09:49:26.681150
-c1a6acb4 - 2025-08-15 09:49:26,703 - INFO - Schema for table sales_data at 2025-08-15T09:49:26.703530
-c1a6acb4 - 2025-08-15 09:49:28,189 - INFO - Executing SQL query at 2025-08-15T09:49:28.189948
-c1a6acb4 - 2025-08-15 09:49:28,190 - INFO - Query: SELECT SUM(purchase_price) AS total_sales 
-FROM sales_data
-WHERE returned = 0;
-c1a6acb4 - 2025-08-15 09:49:28,191 - INFO - Query executed successfully
-c1a6acb4 - 2025-08-15 09:49:29,134 - INFO - Executing SQL query at 2025-08-15T09:49:29.134825
-c1a6acb4 - 2025-08-15 09:49:29,134 - INFO - Query: SELECT COUNT(*) AS total_transactions
-FROM sales_data
-WHERE returned = 0;
-c1a6acb4 - 2025-08-15 09:49:29,135 - INFO - Query executed successfully
+ca678201 - 2025-08-15 09:46:07,281 - INFO - Getting all tables at 2025-08-15T09:46:07.281407
+ca678201 - 2025-08-15 09:46:08,412 - INFO - Executing SQL query at 2025-08-15T09:46:08.412097
+ca678201 - 2025-08-15 09:46:08,412 - INFO - Query: SELECT SUM(total_value) AS total_sales, COUNT(*) AS total_transactions 
+FROM sales_table;
+ca678201 - 2025-08-15 09:46:08,419 - ERROR - Query execution failed: (psycopg2.OperationalError) connection to server at "localhost" (127.0.0.1), port 5432 failed: FATAL:  role "postgres" does not exist
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+ca678201 - 2025-08-15 09:46:09,358 - INFO - Getting schema for table sales_table at 2025-08-15T09:46:09.358807
