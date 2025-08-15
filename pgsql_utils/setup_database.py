@@ -99,7 +99,6 @@ def setup_database():
         # Close initial connection
         cursor.close()
         conn.close()
-        breakpoint()
         # Connect to the sales_db database as postgres to grant schema permissions
         conn = psycopg2.connect(
             dbname="sales_db",
