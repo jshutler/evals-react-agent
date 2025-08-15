@@ -1,0 +1,270 @@
+[
+  {
+    "content": "I would like to know who has made transactions in the database as of right now.",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "type": "human",
+    "name": null,
+    "id": "fbd93196-247e-404f-9853-fea38ca9c765",
+    "example": false
+  },
+  {
+    "content": [
+      {
+        "text": "Okay, let's investigate this step-by-step:",
+        "type": "text"
+      },
+      {
+        "id": "toolu_01HzscHeSTqZTkDQCRnukquM",
+        "input": {
+          "__arg1": "database"
+        },
+        "name": "get_all_tables",
+        "type": "tool_use"
+      }
+    ],
+    "additional_kwargs": {},
+    "response_metadata": {
+      "id": "msg_01N1VbknBYNNigCEu6dpu3pg",
+      "model": "claude-3-haiku-20240307",
+      "stop_reason": "tool_use",
+      "stop_sequence": null,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 625,
+        "output_tokens": 71,
+        "server_tool_use": null,
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "model_name": "claude-3-haiku-20240307"
+    },
+    "type": "ai",
+    "name": null,
+    "id": "run--a037f546-7ba7-4717-bae4-37071142069b-0",
+    "example": false,
+    "tool_calls": [
+      {
+        "name": "get_all_tables",
+        "args": {
+          "__arg1": "database"
+        },
+        "id": "toolu_01HzscHeSTqZTkDQCRnukquM",
+        "type": "tool_call"
+      }
+    ],
+    "invalid_tool_calls": [],
+    "usage_metadata": {
+      "input_tokens": 625,
+      "output_tokens": 71,
+      "total_tokens": 696,
+      "input_token_details": {
+        "cache_read": 0,
+        "cache_creation": 0,
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      }
+    }
+  },
+  {
+    "content": "[\"sales_data\"]",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "type": "tool",
+    "name": "get_all_tables",
+    "id": "839a6d09-1480-440a-a257-e45ed6bc7e3c",
+    "tool_call_id": "toolu_01HzscHeSTqZTkDQCRnukquM",
+    "artifact": null,
+    "status": "success"
+  },
+  {
+    "content": [
+      {
+        "text": "The database appears to have a table called \"sales_data\" that likely contains transaction information. Let's take a look at the schema for this table:",
+        "type": "text"
+      },
+      {
+        "id": "toolu_01K3jtT5oDXRAakJcrePpfxd",
+        "input": {
+          "__arg1": "sales_data"
+        },
+        "name": "get_schema_for_table",
+        "type": "tool_use"
+      }
+    ],
+    "additional_kwargs": {},
+    "response_metadata": {
+      "id": "msg_01NXXoG731nhv4XE47eT8enJ",
+      "model": "claude-3-haiku-20240307",
+      "stop_reason": "tool_use",
+      "stop_sequence": null,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 712,
+        "output_tokens": 94,
+        "server_tool_use": null,
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "model_name": "claude-3-haiku-20240307"
+    },
+    "type": "ai",
+    "name": null,
+    "id": "run--8d236d5a-0293-4283-a3b9-69b2c83d377b-0",
+    "example": false,
+    "tool_calls": [
+      {
+        "name": "get_schema_for_table",
+        "args": {
+          "__arg1": "sales_data"
+        },
+        "id": "toolu_01K3jtT5oDXRAakJcrePpfxd",
+        "type": "tool_call"
+      }
+    ],
+    "invalid_tool_calls": [],
+    "usage_metadata": {
+      "input_tokens": 712,
+      "output_tokens": 94,
+      "total_tokens": 806,
+      "input_token_details": {
+        "cache_read": 0,
+        "cache_creation": 0,
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      }
+    }
+  },
+  {
+    "content": "{'table_name': 'sales_data', 'columns': [{'name': 'first_name', 'type': VARCHAR(length=100), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'last_name', 'type': VARCHAR(length=100), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'customer_id', 'type': INTEGER(), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'purchase_id', 'type': INTEGER(), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'item_purchased', 'type': VARCHAR(length=100), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'item_id', 'type': INTEGER(), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'item_description', 'type': VARCHAR(length=255), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'purchase_price', 'type': NUMERIC(precision=10, scale=2), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'returned', 'type': INTEGER(), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}], 'primary_keys': {'name': None, 'constrained_columns': []}, 'foreign_keys': [], 'indexes': []}",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "type": "tool",
+    "name": "get_schema_for_table",
+    "id": "c4b7f507-3175-41b1-975e-855986cc07ca",
+    "tool_call_id": "toolu_01K3jtT5oDXRAakJcrePpfxd",
+    "artifact": null,
+    "status": "success"
+  },
+  {
+    "content": [
+      {
+        "text": "The schema shows that the \"sales_data\" table has columns for first name, last name, customer ID, purchase ID, item purchased, item ID, item description, purchase price, and a flag for whether the item was returned.\n\nTo get the list of all customers who have made transactions, we can run the following SQL query:",
+        "type": "text"
+      },
+      {
+        "id": "toolu_019e1KX81FPoEE8iPH91CWCP",
+        "input": {
+          "__arg1": "SELECT DISTINCT first_name, last_name \nFROM sales_data\nWHERE returned = 0;"
+        },
+        "name": "run_sql",
+        "type": "tool_use"
+      }
+    ],
+    "additional_kwargs": {},
+    "response_metadata": {
+      "id": "msg_016HXxGW92LqxPX2e7C4ZQsa",
+      "model": "claude-3-haiku-20240307",
+      "stop_reason": "tool_use",
+      "stop_sequence": null,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 1258,
+        "output_tokens": 150,
+        "server_tool_use": null,
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "model_name": "claude-3-haiku-20240307"
+    },
+    "type": "ai",
+    "name": null,
+    "id": "run--c45fae54-7822-4a58-a60a-4a3bda03aecb-0",
+    "example": false,
+    "tool_calls": [
+      {
+        "name": "run_sql",
+        "args": {
+          "__arg1": "SELECT DISTINCT first_name, last_name \nFROM sales_data\nWHERE returned = 0;"
+        },
+        "id": "toolu_019e1KX81FPoEE8iPH91CWCP",
+        "type": "tool_call"
+      }
+    ],
+    "invalid_tool_calls": [],
+    "usage_metadata": {
+      "input_tokens": 1258,
+      "output_tokens": 150,
+      "total_tokens": 1408,
+      "input_token_details": {
+        "cache_read": 0,
+        "cache_creation": 0,
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      }
+    }
+  },
+  {
+    "content": "[{\"first_name\": \"John\", \"last_name\": \"Connors\"}, {\"first_name\": \"Sarah\", \"last_name\": \"McDaniels\"}, {\"first_name\": \"Sarah \", \"last_name\": \"McDaniels\"}]",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "type": "tool",
+    "name": "run_sql",
+    "id": "2b0d4298-28a5-4ac2-a5b9-4636c649001d",
+    "tool_call_id": "toolu_019e1KX81FPoEE8iPH91CWCP",
+    "artifact": null,
+    "status": "success"
+  },
+  {
+    "content": "This query selects the distinct first and last names from the sales_data table, where the returned flag is 0 (indicating the purchase was not returned).\n\nThe results show that John Connors, Sarah McDaniels, and Sarah McDaniels have made purchases in the database as of right now.",
+    "additional_kwargs": {},
+    "response_metadata": {
+      "id": "msg_013LvQJ1NUyNNkSyMBFLDRH2",
+      "model": "claude-3-haiku-20240307",
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 1473,
+        "output_tokens": 68,
+        "server_tool_use": null,
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "model_name": "claude-3-haiku-20240307"
+    },
+    "type": "ai",
+    "name": null,
+    "id": "run--2dba88e2-f3cd-4036-b0db-228cc4f95d4d-0",
+    "example": false,
+    "tool_calls": [],
+    "invalid_tool_calls": [],
+    "usage_metadata": {
+      "input_tokens": 1473,
+      "output_tokens": 68,
+      "total_tokens": 1541,
+      "input_token_details": {
+        "cache_read": 0,
+        "cache_creation": 0,
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      }
+    }
+  }
+]

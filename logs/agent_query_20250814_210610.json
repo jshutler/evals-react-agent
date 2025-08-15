@@ -1,0 +1,343 @@
+[
+  {
+    "content": "What is the total value of all sales in the database as of right now? And how many total transactions have been made?",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "type": "human",
+    "name": null,
+    "id": "1896ba54-b35d-40cf-bf69-33d73fbc723c",
+    "example": false
+  },
+  {
+    "content": [
+      {
+        "text": "Okay, let's break this down step-by-step:",
+        "type": "text"
+      },
+      {
+        "id": "toolu_01AF1gkXVSTgppLQbwRqin8P",
+        "input": {
+          "__arg1": "database"
+        },
+        "name": "get_all_tables",
+        "type": "tool_use"
+      }
+    ],
+    "additional_kwargs": {},
+    "response_metadata": {
+      "id": "msg_01SKXQzzZxX5KRWcuUX2Koyc",
+      "model": "claude-3-haiku-20240307",
+      "stop_reason": "tool_use",
+      "stop_sequence": null,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 633,
+        "output_tokens": 72,
+        "server_tool_use": null,
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "model_name": "claude-3-haiku-20240307"
+    },
+    "type": "ai",
+    "name": null,
+    "id": "run--40141cff-5d5b-4f88-9f20-11b7227ae3ec-0",
+    "example": false,
+    "tool_calls": [
+      {
+        "name": "get_all_tables",
+        "args": {
+          "__arg1": "database"
+        },
+        "id": "toolu_01AF1gkXVSTgppLQbwRqin8P",
+        "type": "tool_call"
+      }
+    ],
+    "invalid_tool_calls": [],
+    "usage_metadata": {
+      "input_tokens": 633,
+      "output_tokens": 72,
+      "total_tokens": 705,
+      "input_token_details": {
+        "cache_read": 0,
+        "cache_creation": 0,
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      }
+    }
+  },
+  {
+    "content": "[\"sales_data\"]",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "type": "tool",
+    "name": "get_all_tables",
+    "id": "0d60e165-c41c-4699-9c62-085d356bf8e4",
+    "tool_call_id": "toolu_01AF1gkXVSTgppLQbwRqin8P",
+    "artifact": null,
+    "status": "success"
+  },
+  {
+    "content": [
+      {
+        "text": "The database contains a \"sales_data\" table, so let's check the schema of that table:",
+        "type": "text"
+      },
+      {
+        "id": "toolu_013tFfWcUMr6GQsFiHreTB6A",
+        "input": {
+          "__arg1": "sales_data"
+        },
+        "name": "get_schema_for_table",
+        "type": "tool_use"
+      }
+    ],
+    "additional_kwargs": {},
+    "response_metadata": {
+      "id": "msg_01EZTR8NFTokLm8xnmw9Adxd",
+      "model": "claude-3-haiku-20240307",
+      "stop_reason": "tool_use",
+      "stop_sequence": null,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 721,
+        "output_tokens": 84,
+        "server_tool_use": null,
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "model_name": "claude-3-haiku-20240307"
+    },
+    "type": "ai",
+    "name": null,
+    "id": "run--be9a44f5-69d2-454f-8342-577b1b55e573-0",
+    "example": false,
+    "tool_calls": [
+      {
+        "name": "get_schema_for_table",
+        "args": {
+          "__arg1": "sales_data"
+        },
+        "id": "toolu_013tFfWcUMr6GQsFiHreTB6A",
+        "type": "tool_call"
+      }
+    ],
+    "invalid_tool_calls": [],
+    "usage_metadata": {
+      "input_tokens": 721,
+      "output_tokens": 84,
+      "total_tokens": 805,
+      "input_token_details": {
+        "cache_read": 0,
+        "cache_creation": 0,
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      }
+    }
+  },
+  {
+    "content": "{'table_name': 'sales_data', 'columns': [{'name': 'first_name', 'type': VARCHAR(length=100), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'last_name', 'type': VARCHAR(length=100), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'customer_id', 'type': INTEGER(), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'purchase_id', 'type': INTEGER(), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'item_purchased', 'type': VARCHAR(length=100), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'item_id', 'type': INTEGER(), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'item_description', 'type': VARCHAR(length=255), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'purchase_price', 'type': NUMERIC(precision=10, scale=2), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}, {'name': 'returned', 'type': INTEGER(), 'nullable': True, 'default': None, 'autoincrement': False, 'comment': None}], 'primary_keys': {'name': None, 'constrained_columns': []}, 'foreign_keys': [], 'indexes': []}",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "type": "tool",
+    "name": "get_schema_for_table",
+    "id": "3179e937-db04-4ce5-8b89-562588e8da17",
+    "tool_call_id": "toolu_013tFfWcUMr6GQsFiHreTB6A",
+    "artifact": null,
+    "status": "success"
+  },
+  {
+    "content": [
+      {
+        "text": "The \"sales_data\" table contains the purchase information, including the purchase price. To get the total sales value, we can run the following SQL query:",
+        "type": "text"
+      },
+      {
+        "id": "toolu_014hNcEgM4g3K5TnLXF5AXqK",
+        "input": {
+          "__arg1": "SELECT SUM(purchase_price) AS total_sales \nFROM sales_data\nWHERE returned = 0;"
+        },
+        "name": "run_sql",
+        "type": "tool_use"
+      }
+    ],
+    "additional_kwargs": {},
+    "response_metadata": {
+      "id": "msg_01JQm7urJYAkLmAKrepKpAR9",
+      "model": "claude-3-haiku-20240307",
+      "stop_reason": "tool_use",
+      "stop_sequence": null,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 1257,
+        "output_tokens": 115,
+        "server_tool_use": null,
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "model_name": "claude-3-haiku-20240307"
+    },
+    "type": "ai",
+    "name": null,
+    "id": "run--0c605ce1-53f2-45e5-b6d6-995ef78d27e8-0",
+    "example": false,
+    "tool_calls": [
+      {
+        "name": "run_sql",
+        "args": {
+          "__arg1": "SELECT SUM(purchase_price) AS total_sales \nFROM sales_data\nWHERE returned = 0;"
+        },
+        "id": "toolu_014hNcEgM4g3K5TnLXF5AXqK",
+        "type": "tool_call"
+      }
+    ],
+    "invalid_tool_calls": [],
+    "usage_metadata": {
+      "input_tokens": 1257,
+      "output_tokens": 115,
+      "total_tokens": 1372,
+      "input_token_details": {
+        "cache_read": 0,
+        "cache_creation": 0,
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      }
+    }
+  },
+  {
+    "content": "[{'total_sales': Decimal('78.00')}]",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "type": "tool",
+    "name": "run_sql",
+    "id": "e5c73a76-522f-4313-a3cb-a439f0dd00d1",
+    "tool_call_id": "toolu_014hNcEgM4g3K5TnLXF5AXqK",
+    "artifact": null,
+    "status": "success"
+  },
+  {
+    "content": [
+      {
+        "text": "This query sums the purchase_price column from the sales_data table, but only includes rows where the returned column is 0 (i.e. not returned).\n\nTo get the total number of transactions, we can run:",
+        "type": "text"
+      },
+      {
+        "id": "toolu_01CqjFoUPxs1wyhB1vwUEvfR",
+        "input": {
+          "__arg1": "SELECT COUNT(*) AS total_transactions\nFROM sales_data\nWHERE returned = 0;"
+        },
+        "name": "run_sql",
+        "type": "tool_use"
+      }
+    ],
+    "additional_kwargs": {},
+    "response_metadata": {
+      "id": "msg_01V9PdhuL8RJfP21t9xicxcf",
+      "model": "claude-3-haiku-20240307",
+      "stop_reason": "tool_use",
+      "stop_sequence": null,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 1394,
+        "output_tokens": 124,
+        "server_tool_use": null,
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "model_name": "claude-3-haiku-20240307"
+    },
+    "type": "ai",
+    "name": null,
+    "id": "run--611871bc-d6c6-4f15-962b-91d55cfbf7d4-0",
+    "example": false,
+    "tool_calls": [
+      {
+        "name": "run_sql",
+        "args": {
+          "__arg1": "SELECT COUNT(*) AS total_transactions\nFROM sales_data\nWHERE returned = 0;"
+        },
+        "id": "toolu_01CqjFoUPxs1wyhB1vwUEvfR",
+        "type": "tool_call"
+      }
+    ],
+    "invalid_tool_calls": [],
+    "usage_metadata": {
+      "input_tokens": 1394,
+      "output_tokens": 124,
+      "total_tokens": 1518,
+      "input_token_details": {
+        "cache_read": 0,
+        "cache_creation": 0,
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      }
+    }
+  },
+  {
+    "content": "[{\"total_transactions\": 5}]",
+    "additional_kwargs": {},
+    "response_metadata": {},
+    "type": "tool",
+    "name": "run_sql",
+    "id": "e7e5e5d9-31de-408f-abe7-2e0f39500ef7",
+    "tool_call_id": "toolu_01CqjFoUPxs1wyhB1vwUEvfR",
+    "artifact": null,
+    "status": "success"
+  },
+  {
+    "content": "So the key findings are:\n- The total sales value is $78.00\n- There have been a total of 5 transactions made\n\nLet me know if you need any clarification or have additional questions!",
+    "additional_kwargs": {},
+    "response_metadata": {
+      "id": "msg_0174wHTTzkyZLZfynUWaurXu",
+      "model": "claude-3-haiku-20240307",
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 1538,
+        "output_tokens": 49,
+        "server_tool_use": null,
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "model_name": "claude-3-haiku-20240307"
+    },
+    "type": "ai",
+    "name": null,
+    "id": "run--f77ed51d-f158-45be-94b5-e9e2cdea5c4b-0",
+    "example": false,
+    "tool_calls": [],
+    "invalid_tool_calls": [],
+    "usage_metadata": {
+      "input_tokens": 1538,
+      "output_tokens": 49,
+      "total_tokens": 1587,
+      "input_token_details": {
+        "cache_read": 0,
+        "cache_creation": 0,
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      }
+    }
+  }
+]

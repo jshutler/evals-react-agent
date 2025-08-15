@@ -15,8 +15,16 @@ from dotenv import load_dotenv
 from models import FinalReport, DAOGetAllTables, DAOGetSchemaForTable, DAORunSQL
 from sqlalchemy_utils.sales_dao import SalesDAO
 from db_constants import SALES_DB_CONNECTION_STRING
-
+from datetime import datetime
 load_dotenv()
+
+REACT_AGENT_PROMPT = """You are a database agent. Your job is to answer the user's question using the tools provided
+to query the database. Make sure to always check for the schema of the tables before querying the database directly"""
+
+def log_messages_to_json(messages: list, filename: str):
+    log_messages = [dict(m) for m in messages]
+    with open(filename, 'w') as f:
+        json.dump(log_messages, f, indent=2, ensure_ascii=False)
 
 def create_database_tools(dao: SalesDAO) -> List[Tool]:
     """Create LangChain tools from your Pydantic models"""
@@ -67,7 +75,7 @@ def create_database_tools(dao: SalesDAO) -> List[Tool]:
     
     return tools
 
-def db_agent(*, use_anthropic: bool = True, model_name: str = None):
+def db_agent(*, react_agent_prompt: str, use_anthropic: bool = True, model_name: str = None):
     """Database analysis agent that works with both Anthropic and Inspect evaluation.
     
     Args:
@@ -103,10 +111,11 @@ def db_agent(*, use_anthropic: bool = True, model_name: str = None):
         model=model,
         tools=tools,
         checkpointer=MemorySaver(),
+        prompt=react_agent_prompt
     )
     
     # Sample handler (works for both production and evaluation)
-    async def run(sample: dict[str, Any]) -> dict[str, Any]:
+    async def run(sample: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
         # Handle different input formats
         if isinstance(sample, dict) and "input" in sample:
             # Inspect evaluation format
@@ -120,6 +129,8 @@ def db_agent(*, use_anthropic: bool = True, model_name: str = None):
             input={"messages": input_messages},
             config={"configurable": {"thread_id": str(uuid4())}},
         )
+        log_filename = f"logs/agent_query_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        log_messages_to_json(result["messages"], log_filename)
         
         # Return output (content of last message)
         message: AIMessage = result["messages"][-1]
@@ -130,9 +141,9 @@ def db_agent(*, use_anthropic: bool = True, model_name: str = None):
 # For direct production usage
 async def query_database_agent(query: str, use_anthropic: bool = True, model_name: str = None):
     """Direct interface for production usage"""
-    agent = db_agent(use_anthropic=use_anthropic, model_name=model_name)
-    result = await agent(query)
-    return result["output"]
+    agent = db_agent(react_agent_prompt=REACT_AGENT_PROMPT, use_anthropic=use_anthropic, model_name=model_name)
+    final_message = await agent(query)
+    return final_message
 
 # For Inspect evaluation usage
 def db_agent_for_inspect():
@@ -148,7 +159,7 @@ if __name__ == "__main__":
     tools = create_database_tools(dao)
     # # Production usage with Anthropic
     async def production_example():
-        query = "I would like to know who has made transactions in the database as of right now."
+        query = "What is the total value of all sales in the database as of right now? And how many total transactions have been made?"
         result = await query_database_agent(query, use_anthropic=True)
         print(f"Production result: {result}")
     
