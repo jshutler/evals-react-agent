@@ -3,36 +3,109 @@ from psycopg2 import Error
 import os
 import pandas as pd
 
+def test_connection_parameters():
+    """Test different common PostgreSQL connection scenarios"""
+    
+    # Common connection scenarios to try
+    connection_configs = [
+        {
+            "dbname": "postgres",
+            "user": "postgres", 
+            "password": "password",
+            "host": "localhost",
+            "port": "5432"
+        },
+        {
+            "dbname": "postgres",
+            "user": "postgres", 
+            "password": "",  # No password
+            "host": "localhost",
+            "port": "5432"
+        },
+        {
+            "dbname": "postgres",
+            "user": os.getenv("USER", "jshutler"),  # Your system username
+            "password": "",
+            "host": "localhost",
+            "port": "5432"
+        },
+        {
+            "dbname": "template1",
+            "user": "postgres", 
+            "password": "password",
+            "host": "localhost",
+            "port": "5432"
+        }
+    ]
+    
+    for i, config in enumerate(connection_configs):
+        try:
+            print(f"Trying connection config {i+1}: user='{config['user']}', dbname='{config['dbname']}', password={'***' if config['password'] else 'None'}")
+            conn = psycopg2.connect(**config)
+            conn.close()
+            print(f"✓ Connection successful with config {i+1}")
+            return config
+        except Exception as e:
+            print(f"✗ Config {i+1} failed: {e}")
+    
+    return None
+
 def setup_database():
     conn = None
     try:
-        # First connect to default 'postgres' database
-        conn = psycopg2.connect(
-            dbname="postgres",
-            user="postgres",
-            password="password",  # Make sure to use your actual password
-            host="localhost",
-            port="5432"
-        )
+        # First, test which connection parameters work
+        print("Testing PostgreSQL connection parameters...")
+        working_config = test_connection_parameters()
+        
+        if not working_config:
+            print("\n❌ Could not establish any connection to PostgreSQL.")
+            print("Please ensure:")
+            print("1. PostgreSQL is installed and running")
+            print("2. You know the correct username/password")
+            print("3. PostgreSQL is running on port 5432")
+            print("\nTo start PostgreSQL (if installed via Homebrew):")
+            print("   brew services start postgresql")
+            return False
+        
+        print(f"\n✓ Using working connection: {working_config}")
+        
+        # Connect with working parameters
+        conn = psycopg2.connect(**working_config)
         conn.autocommit = True
         cursor = conn.cursor()
+
+        # Create user if it doesn't exist
+        cursor.execute("SELECT 1 FROM pg_roles WHERE rolname='jshutler'")
+        if not cursor.fetchone():
+            cursor.execute("CREATE USER jshutler WITH PASSWORD 'password'")
+            print("Created user 'jshutler'")
+
+        # Drop database if it exists, then create it fresh
+        cursor.execute("SELECT 1 FROM pg_database WHERE datname='sales_db'")
+        if cursor.fetchone():
+            # Terminate existing connections to the database
+            cursor.execute("""
+                SELECT pg_terminate_backend(pid)
+                FROM pg_stat_activity
+                WHERE datname = 'sales_db' AND pid <> pg_backend_pid()
+            """)
+            cursor.execute("DROP DATABASE sales_db")
+            print("Dropped existing database 'sales_db'")
         
-        # Create a new database
-        db_name = "sales_db"
-        cursor.execute(f"DROP DATABASE IF EXISTS {db_name}")
-        cursor.execute(f"CREATE DATABASE {db_name}")
-        print(f"Database '{db_name}' created successfully!")
-        
-        # Close connection to postgres database
+        cursor.execute("CREATE DATABASE sales_db")
+        cursor.execute("GRANT ALL PRIVILEGES ON DATABASE sales_db TO jshutler")
+        print("Created database 'sales_db' and granted privileges")
+
+        # Close initial connection
         cursor.close()
         conn.close()
-        
-        # Connect to our newly created database
+
+        # Connect to the sales_db database as jshutler
         conn = psycopg2.connect(
-            dbname=db_name,
-            user="postgres",
-            password="password",  # Make sure to use your actual password
-            host="localhost",
+            dbname="sales_db",
+            user="jshutler",
+            password="password",
+            host="localhost", 
             port="5432"
         )
         conn.autocommit = True
@@ -56,7 +129,7 @@ def setup_database():
         print("Table created successfully!")
         
         # Load data from CSV
-        df = pd.read_csv('/home/jshutler/Desktop/code/evals-react-agent/sales_data.csv')
+        df = pd.read_csv('sales_data.csv')
         
         # Insert data
         for _, row in df.iterrows():
