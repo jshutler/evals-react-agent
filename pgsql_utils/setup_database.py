@@ -100,6 +100,29 @@ def setup_database():
         cursor.close()
         conn.close()
 
+        # Connect to the sales_db database as postgres to grant schema permissions
+        conn = psycopg2.connect(
+            dbname="sales_db",
+            user="postgres",
+            password="password",
+            host="localhost", 
+            port="5432"
+        )
+        conn.autocommit = True
+        cursor = conn.cursor()
+        
+        # Grant schema permissions to jshutler user
+        cursor.execute("GRANT ALL ON SCHEMA public TO jshutler")
+        cursor.execute("GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO jshutler")
+        cursor.execute("GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO jshutler")
+        cursor.execute("ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO jshutler")
+        cursor.execute("ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO jshutler")
+        print("Granted schema permissions to jshutler user")
+        
+        # Close postgres connection
+        cursor.close()
+        conn.close()
+
         # Connect to the sales_db database as jshutler
         conn = psycopg2.connect(
             dbname="sales_db",
