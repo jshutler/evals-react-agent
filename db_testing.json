@@ -1,0 +1,41 @@
+[
+  {
+    "id": "test_customer_analysis",
+     "target": "John Connors (customer_id: 2) made 2 purchases totaling $40. He bought 2 Transformers (item_id: 4) for $20 each. One of the Transformers was returned (purchase_id: 3), so his net purchase value is $20. This shows he may have had quality issues or changed his mind about one of the toys.",
+    "metadata": {
+      "test_type": "customer_analysis",
+      "requires_tools": ["get_all_tables", "get_schema_for_table", "run_sql"],
+      "complexity": "medium"
+    }
+  },
+  {
+    "id": "test_sales_summary", 
+    "input": "Generate a comprehensive sales report including total revenue, number of transactions, and return rate.",
+    "target": "Total revenue: $98 across 4 transactions. Return rate: 16.666% (1 out of 6 transactions). The database shows sales of milk, apples, bell peppers, toys, and gas. One Transformer toy was returned, reducing net revenue to $78. Most purchases were made by Sarah McDaniels (4 transactions) and John Connors (2 transactions).",
+    "metadata": {
+      "test_type": "sales_summary",
+      "requires_tools": ["get_all_tables", "get_schema_for_table", "run_sql", "final_report"],
+      "complexity": "high"
+    }
+  },
+  {
+    "id": "test_product_analysis",
+    "input": "Which products have been returned and what is the return rate by product category?",
+    "target": "Only one product has been returned: the Transformer toy (item_id: 4). The return rate for toys is 50% (1 returned out of 2 toy purchases). All other product categories (groceries and gas) have 0% return rates. This suggests potential quality issues with the toy products.",
+    "metadata": {
+      "test_type": "product_analysis", 
+      "requires_tools": ["get_schema_for_table", "run_sql"],
+      "complexity": "medium"
+    }
+  },
+  {
+    "id": "test_total_sales",
+    "input": "What is the total revenue ignoring whether or not any item was returned?",
+    "target": "98",
+    "metadata": {
+      "test_type": "total_sales",
+      "requires_tools": ["get_all_tables", "get_schema_for_table", "run_sql"],
+      "complexity": "low"
+    }
+  }
+]

@@ -159,7 +159,8 @@ if __name__ == "__main__":
     tools = create_database_tools(dao)
     # # Production usage with Anthropic
     async def production_example():
-        query = "What is the total value of all sales in the database as of right now? And how many total transactions have been made?"
+        # query = "What is the total value of all sales in the database as of right now? And how many total transactions have been made?"
+        query = 'What is the total revenue in the database?'
         result = await query_database_agent(query, use_anthropic=True)
         print(f"Production result: {result}")
     
